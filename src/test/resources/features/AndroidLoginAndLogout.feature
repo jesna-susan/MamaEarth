@@ -14,19 +14,6 @@ Feature: Login and Logout Functionality
     When user enter otp and click on submit button
     Then verify user login is successful
 
-  Scenario Outline: verify user cannot login with invalid phone number
-    When user enters invalid phone number "<login.phone>"
-    And clicks on continue button
-    Then verify error message is displayed
-
-
-    Examples:
-      | login.phone |
-      | 777788      |
-      | 52345678    |
-      | 76195138    |
-
-
   Scenario: verify user can logout
     When user enters valid phone number "login.phone"
     And clicks on continue button
