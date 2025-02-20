@@ -1,4 +1,4 @@
-Feature: Invalid Login
+Feature: Verifying Invalid Login Functionality
   Background:
     Given user opens the website
     Then verify user is on home page
