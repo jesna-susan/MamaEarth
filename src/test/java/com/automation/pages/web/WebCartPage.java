@@ -2,8 +2,11 @@ package com.automation.pages.web;
 
 import com.automation.pages.common.BasePage;
 import com.automation.pages.ui.CartPage;
+import com.automation.utils.ConfigReader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.awt.*;
 
 public class WebCartPage extends BasePage implements CartPage {
 
@@ -28,6 +31,17 @@ public class WebCartPage extends BasePage implements CartPage {
     @FindBy(xpath="//button[text()='SHOP NOW']")
         WebElement shopNowButton ;
 
+    @FindBy(xpath="//a[text()='Home']")
+        WebElement homeTab;
+
+    @FindBy(xpath="//div[@class=\"item-name\"]")
+        WebElement productnameFromCart;
+
+    @FindBy(xpath = "//div[@class=\"item-quantity\"]")
+    WebElement itemQuantity ;
+    @FindBy(xpath = "//div[@class=\"qty-selector\"]/div[text()=\" + \"]")
+    WebElement plusButton ;
+
 
 
     public boolean isCartPageDisplayed(){
@@ -51,10 +65,26 @@ public class WebCartPage extends BasePage implements CartPage {
     }
 
     public void goToHomePage(){
-        shopNowButton.click();
+        if(isDisplayed(shopNowButton)) {
+            shopNowButton.click();
+        } else if (isDisplayed(homeTab)) {
+            homeTab.click();
+        }
     }
 
+    public boolean isProductDisplayed(){
+        return ((productnameFromCart.getText()).equals(ConfigReader.getConfigValue("productAddedToCart")));
+    }
+
+    @Override
+    public void increaseTheQuantity(String quantity) {
+        int requiredQuantity = Integer.parseInt(quantity);
+        int currentQuantity = Integer.parseInt(itemQuantity.getText());
+        for (int i = currentQuantity; i <= requiredQuantity; i++) {
+            plusButton.click();
+        }
 
 
+    }
 
 }

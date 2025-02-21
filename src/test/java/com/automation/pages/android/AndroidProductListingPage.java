@@ -56,6 +56,9 @@ public class AndroidProductListingPage extends BasePage implements ProductListin
     @FindBy(xpath="//android.widget.TextView[contains(@text,'results found')]/following-sibling::android.view.ViewGroup[1]")
     WebElement firstItem ;
 
+    @FindBy(xpath = "//android.widget.TextView[contains(@text, 'results found')]")
+    WebElement resultsFound;
+
 
     @Override
     public boolean isProductListingPageDisplayed() {
@@ -220,6 +223,8 @@ public class AndroidProductListingPage extends BasePage implements ProductListin
     public void clickOnFirstItem(){
         firstItem.click();
     }
+
+
 
 
 

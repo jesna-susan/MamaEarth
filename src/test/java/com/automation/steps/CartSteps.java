@@ -37,4 +37,12 @@ public class CartSteps extends BaseSteps{
     public void userGoesToHomePage() {
         cartPage.goToHomePage();
     }
+
+
+
+
+    @Then("verify product name is displayed there")
+    public void verifyProductNameIsDisplayedThere() {
+        Assert.assertTrue(cartPage.isProductDisplayed());
+    }
 }

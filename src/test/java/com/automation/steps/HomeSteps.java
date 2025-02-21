@@ -74,7 +74,7 @@ public class HomeSteps extends BaseSteps{
 
     @When("user clicks on cart icon")
     public void userClicksOnCartIcon() {
-        homePage.clickOnCartIcon();
+        productDetailsPage.clickOnCartIcon();
     }
 
 
@@ -120,4 +120,17 @@ public class HomeSteps extends BaseSteps{
     }
 
 
+
+
+
+
+
+
+
+
+    @When("user selects the first product from home page")
+    public void userSelectsTheFirstProductFromHomePage() {
+        //homePage.userSelectFirstProductFromHomePage();
+        homePage.addToCartFirstItem();
+    }
 }

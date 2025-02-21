@@ -65,6 +65,25 @@ public class WebHomePage extends BasePage implements HomePage {
     @FindBy(xpath = "(//i[@class='minus-icon'])[1]")
     WebElement minusIcon;
 
+    @FindBy(xpath="//span[@class=\"addTocart_desktop\"]")
+        WebElement firstAddToCart;
+
+    @FindBy(xpath="//button/span[text()='Add To Cart']")
+        List<WebElement> firstAddToCart2;
+
+    @FindBy(xpath="//span[@class=\"addTocart_desktop\"]/../../preceding-sibling::div/div[@class='title']")
+        WebElement productName;
+
+    @FindBy(xpath="//button[@id=\"wzrk-cancel-id\"]")
+        WebElement laterBtn;
+
+    @FindBy(xpath = "//a[text()='VIEW ALL' and @href='/product-category/for-babies']")
+    WebElement viewAllBabyProducts ;
+    @FindBy(xpath = "//div[@class=\"categorytitle\" and text()=\"Baby Care\"]")
+    WebElement babyCareproducts ;
+
+    @FindBy(xpath = "//a[text()='Home']")
+    List<WebElement> homeIcon ;
 
 
 
@@ -75,6 +94,9 @@ public class WebHomePage extends BasePage implements HomePage {
     @Override
     public void openApplication() {
         driver.get(ConfigReader.getConfigValue("application.url"));
+        if(isDisplayed(laterBtn)){
+            laterBtn.click();
+        }
     }
 
     @Override
@@ -132,6 +154,23 @@ public class WebHomePage extends BasePage implements HomePage {
         manageAddressOtion.click();
     }
 
+    @Override
+    public void goToBabyCareProducts(){
+        Actions actions=new Actions(driver);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        while (!isDisplayed("//div[text()='Baby Care']/../following-sibling::div[@class='viewAlL']//a[text()='VIEW ALL']"))
+            js.executeScript("window.scrollBy(0, 500);");
+    }
+    public void clickOnViewAllBtn(){
+        viewAllBabyProducts.click();
+    }
+    public void clickOnHomeIcon(){
+        homeIcon.get(0).click();
+    }
+    public void clickOnSearchBar(){
+        searchBar.click();
+    }
+
     public void clickOnCartIcon() {
         cart.click();
     }
@@ -184,6 +223,17 @@ public class WebHomePage extends BasePage implements HomePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(2));
         WebElement popUpMessage=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Product has been removed from cart')]")));
         return isDisplayed(popUpMessage);
+    }
+
+    public void userSelectFirstProductFromHomePage(){
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(firstAddToCart2).click().perform();
+        for (int i=0;i< firstAddToCart2.size();i++){
+            if(firstAddToCart2.get(i).isEnabled()) {
+                firstAddToCart2.get(i).click();
+                return;
+            }
+        }
     }
 
 }

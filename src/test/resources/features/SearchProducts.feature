@@ -1,5 +1,6 @@
 Feature: Search Products and verify the results
 
+  #working
   Background:
     Given user opens the website
     Then verify user is on home page

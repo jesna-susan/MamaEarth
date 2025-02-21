@@ -2,6 +2,7 @@ package com.automation.pages.web;
 
 import com.automation.pages.common.BasePage;
 import com.automation.pages.ui.ProductListingPage;
+import com.automation.utils.ConfigReader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -33,11 +34,21 @@ public class WebProductListingPage extends BasePage implements ProductListingPag
     @FindBy(xpath = "//div[text()=\"Our Products\"]/../following-sibling::div[@class=\"product-faq-container\"]/div/section/section/div/div[2]/div/div/div[5]/div[1]")
     List<WebElement> priceElements;
 
-    @FindBy(xpath = "//span[text()='Add To Cart']")
-    List<WebElement> addToCartBtns;//span[text()='Add To Cart']
+    @FindBy(xpath = "//span[@class=\"addTocart_desktop\" or text()=\"Add To Cart\"]")
+    List<WebElement> addToCartBtns;
 
     @FindBy(xpath = "//span[@class=\"rating\"]")
     List<WebElement> ratingsElements;
+
+    @FindBy(xpath = "//button[text()='Body Lotion']")
+    WebElement bodyLotionBtn ;
+
+    @FindBy(xpath = "//div[@class=\"resultsfor\"]")
+    WebElement resultsFound ;
+
+
+
+
 
     @FindBy(xpath="//div[text()='No products found']")
     WebElement invalidProductMessage ;
@@ -139,6 +150,36 @@ public class WebProductListingPage extends BasePage implements ProductListingPag
 
     public boolean isInvalidMessageDisplayed(){
         return isDisplayed(invalidProductMessage);
+    }
+
+    public void addToCartFirstItem(){
+        addToCartBtns.get(0).click();
+    }
+
+    public void selectBabyBodyLotion(){
+        bodyLotionBtn.click();
+    }
+
+    public void selectFirstItem(){
+        productsTitle.get(0).click();
+    }
+
+    public  boolean isProductsTitleWithKeyword(String keyword){
+//        System.out.println(resultsFound.getText());
+        for (WebElement each : productsTitle){
+            //System.out.println(each.getText());
+            if(!each.getText().contains(keyword))
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isCountEqualsTotalProducts(){
+        String count = resultsFound.getText().replaceAll("[^0-9]", "");
+        ConfigReader.setConfigValue("results.count",count);
+//        System.out.println(count);
+//        System.out.println(ConfigReader.getIntConfigValue("results.count") );
+        return ConfigReader.getIntConfigValue("results.count") == productsTitle.size();
     }
 }
 

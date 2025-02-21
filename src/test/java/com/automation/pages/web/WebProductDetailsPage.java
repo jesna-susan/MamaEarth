@@ -19,6 +19,17 @@ public class WebProductDetailsPage extends BasePage implements ProductDetailsPag
 
 
     @Override
+    public void ClickOnAddToCartBtn(){
+        addToCartBtn.click();
+    }
+
+
+    public boolean isProductDetailsPageDisplayed() {
+        return isDisplayed(addToCartBtn);
+    }
+
+
+    @Override
     public boolean isTitleWithKeyword(String keyword){
         if(productTitle.getText().toLowerCase().contains(keyword.toLowerCase())){
             return true;
@@ -27,13 +38,15 @@ public class WebProductDetailsPage extends BasePage implements ProductDetailsPag
     }
 
     @Override
-    public void ClickOnAddToCartBtn(){
+    public void ClickOnAddToCartBtn1(){
         addToCartBtn.click();
     }
 
     public void clickOnCartIcon(){
         cartIcon.click();
     }
+
+    public void clickOnProductAddToCartBtn(){}
 
 
 }

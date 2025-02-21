@@ -1,4 +1,6 @@
 Feature: Login and Logout Functionality
+
+  #working
   Background:
     Given user opens the website
     Then verify user is on home page

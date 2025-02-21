@@ -1,4 +1,5 @@
 Feature: Verify the cart number updates based on the action
+  #working
 
   Background:
     Given user opens the website

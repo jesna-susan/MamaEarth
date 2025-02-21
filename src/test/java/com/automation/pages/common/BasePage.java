@@ -9,10 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class BasePage {
 
@@ -22,7 +25,7 @@ public class BasePage {
     public BasePage() {
         driver = DriverManager.getDriver();
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public boolean isDisplayed(WebElement element) {
@@ -110,6 +113,35 @@ public class BasePage {
                 .addAction(finger1.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
         ((AndroidDriver)driver).perform(Collections.singletonList(sequence));
     }
+
+    public void handleSplashScreen() {
+        List<By> splashScreenElements = List.of(
+                By.xpath("//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ImageView") // Example loading text
+        );
+
+        for (By locator : splashScreenElements) {
+            try {
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+                return; // Exit if splash disappears
+            } catch (Exception ignored) {
+                // Element not found, move to the next check
+            }
+        }
+    }
+
+    public boolean isDisplayed(String xpath) {
+        try {
+            setImplicitWait(2);
+            WebElement ele = driver.findElement(By.xpath(xpath));
+            return ele.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        } finally {
+            setImplicitWait(20);
+        }
+    }
+
+
 }
 
 

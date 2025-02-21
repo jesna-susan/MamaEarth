@@ -25,5 +25,15 @@ public interface ProductListingPage {
 
     default void clickOnFirstItem(){}
 
+    default void addToCartFirstItem(){}
+
+    default void selectBabyBodyLotion(){}
+
+    default void selectFirstItem(){}
+
+    boolean isProductsTitleWithKeyword(String keyword);
+
+    boolean isCountEqualsTotalProducts();
+
 
 }

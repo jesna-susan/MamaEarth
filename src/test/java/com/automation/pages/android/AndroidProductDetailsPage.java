@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 public class AndroidProductDetailsPage extends BasePage implements ProductDetailsPage {
 
     @FindBy(xpath="(//android.widget.TextView[@text='Add to cart'])[1]")
-    WebElement addToCartBtn;
+    WebElement addToCartBtn1;
 
     @FindBy(xpath="(//com.horcrux.svg.PathView)[1]")
         WebElement backBtn ;
@@ -20,20 +20,54 @@ public class AndroidProductDetailsPage extends BasePage implements ProductDetail
     @FindBy(xpath="(//com.horcrux.svg.SvgView/following-sibling::android.view.ViewGroup/android.widget.TextView)[1]")
     WebElement cartQty;
 
+    @FindBy(xpath="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView[1]")
+        WebElement productName;
+
+    @FindBy(xpath="(//com.horcrux.svg.PathView)[3]")
+        WebElement cartIcon ;
+
+    @FindBy(xpath="(//com.horcrux.svg.PathView)[2]")
+    WebElement profileIcon ;
+
+    @FindBy(xpath="//android.widget.TextView[@text=\"Recommendations for you\"]/../preceding-sibling::android.view.ViewGroup")
+        WebElement closeBtn;
+
     @Override
     public boolean isTitleWithKeyword(String keyword){
         return false;
     }
 
     @Override
+    public void ClickOnAddToCartBtn1(){
+        addToCartBtn1.click();
+    }
+
+
+    @FindBy(xpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.TextView[1]")
+    WebElement productTitle;
+    @FindBy(xpath = "//android.widget.TextView[@text=\"ADD TO CART\"]")
+    WebElement addToCartBtn ;
+    @FindBy(xpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView")
+    WebElement cancelBtn ;
+    @FindBy(xpath = "//android.widget.TextView[@text=\"VIEW CART\"]\n")
+    WebElement viewCartBtn;
+
+
+    public boolean isTitleWithKeyword(String keyword){
+        return productTitle.getText().toLowerCase().contains(keyword.toLowerCase());
+    }
+
     public void ClickOnAddToCartBtn(){
         addToCartBtn.click();
+        // cancelBtn.click();
     }
 
-    @Override
     public void clickOnCartIcon(){
-
+        viewCartBtn.click();
     }
+
+
+
 
     public void clickOnBackButton(){
         backBtn.click();
@@ -41,6 +75,10 @@ public class AndroidProductDetailsPage extends BasePage implements ProductDetail
 
     public void clickOnProductAddToCartBtn(){
         productAddToCart.click();
+        if (isDisplayed(closeBtn)) {
+            closeBtn.click();
+
+        }
     }
 
     public boolean HasCartQtyIncreased(String number){
@@ -71,5 +109,27 @@ public class AndroidProductDetailsPage extends BasePage implements ProductDetail
         else{
             return false;
         }
+
+
+    }
+
+
+
+
+    @Override
+    public String getProductName(){
+        System.out.println(productName.getText());
+        return productName.getText();
+    }
+
+    @Override
+    public void clickOnCartIcon(){
+        if(isDisplayed(cartIcon)){
+            cartIcon.click();
+        }
+    }
+
+    public void clickOnProfileIcon(){
+        profileIcon.click();
     }
 }

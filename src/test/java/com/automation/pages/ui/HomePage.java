@@ -46,4 +46,11 @@ public interface HomePage {
     void removeProductFromCart();
 
     boolean isRemovedPopUpDisplayed();
+
+
+    void userSelectFirstProductFromHomePage();
+    void goToBabyCareProducts();
+    void clickOnViewAllBtn();
+    default void clickOnHomeIcon(){}
+    void clickOnSearchBar();
 }

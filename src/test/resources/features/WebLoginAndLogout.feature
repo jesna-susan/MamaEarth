@@ -1,4 +1,5 @@
 Feature: Login and Logout Functionality
+  #working
 
   Background:
     Given user opens the website
